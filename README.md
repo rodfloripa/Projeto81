@@ -2,7 +2,7 @@
 # Diagnóstico Probabilístico de Doenças com Redes Bayesianas
 
 <p align="center">
-Projeto de inferência probabilística utilizando Redes Bayesianas para estimar a probabilidade de doenças a partir de sintomas observados, empregando Modelos Gráficos Probabilísticos (PGMs).
+Projeto de inferência probabilística utilizando Redes Bayesianas para estimar a probabilidade de doenças a partir de sintomas observados por meio de Modelos Gráficos Probabilísticos (PGMs).
 </p>
 
 ---
@@ -11,11 +11,19 @@ Projeto de inferência probabilística utilizando Redes Bayesianas para estimar 
 
 <p align="justify">
 
-Este projeto demonstra a aplicação de um **Modelo Gráfico Probabilístico (PGM)** para realizar diagnóstico probabilístico de doenças utilizando uma **Rede Bayesiana**. Diferentemente de sistemas baseados em regras fixas, o modelo representa explicitamente as relações de dependência entre doenças e sintomas por meio de um grafo direcionado.
+Este projeto demonstra a utilização de uma Rede Bayesiana para realizar diagnósticos probabilísticos a partir dos sintomas apresentados por um paciente. Em vez de utilizar regras fixas, o modelo representa explicitamente as relações de dependência entre doenças e sintomas por meio de um grafo direcionado.
 
-A partir das evidências observadas, como presença de febre, tosse e cansaço, o algoritmo estima automaticamente a probabilidade de cada doença utilizando inferência bayesiana. Dessa forma, novas informações podem ser incorporadas ao diagnóstico, atualizando continuamente as probabilidades calculadas.
+</p>
 
-O objetivo do projeto é ilustrar como técnicas probabilísticas podem auxiliar processos de apoio à decisão, tratamento de incertezas e interpretação de relações causais entre variáveis.
+<p align="justify">
+
+À medida que novas evidências são informadas, como febre, tosse ou cansaço, o algoritmo atualiza automaticamente as probabilidades de cada doença utilizando inferência bayesiana.
+
+</p>
+
+<p align="justify">
+
+Essa abordagem permite tratar naturalmente a incerteza presente em problemas reais, tornando o processo de decisão mais interpretável e flexível.
 
 </p>
 
@@ -25,27 +33,35 @@ O objetivo do projeto é ilustrar como técnicas probabilísticas podem auxiliar
 
 <p align="justify">
 
-Modelos Gráficos Probabilísticos representam variáveis aleatórias e suas dependências condicionais através de grafos.
+Modelos Gráficos Probabilísticos (PGMs) representam relações estatísticas entre variáveis utilizando grafos.
 
-Cada nó representa uma variável, enquanto as arestas representam relações probabilísticas entre elas.
+</p>
 
-Essa estrutura permite decompor distribuições de probabilidade complexas em componentes menores, tornando os cálculos de inferência mais eficientes e interpretáveis.
+<p align="justify">
 
-Neste projeto foi utilizada uma Rede Bayesiana, um tipo de PGM baseado em grafos direcionados acíclicos.
+Cada nó representa uma variável aleatória, enquanto as arestas representam dependências condicionais entre essas variáveis.
+
+</p>
+
+<p align="justify">
+
+Essa representação permite decompor distribuições de probabilidade complexas em componentes menores, simplificando os cálculos de inferência.
+
+</p>
+
+<p align="justify">
+
+Neste projeto foi utilizada uma Rede Bayesiana, composta por um grafo direcionado acíclico e distribuições de probabilidade condicionais.
 
 </p>
 
 ---
 
-# 3. Estrutura da Rede Bayesiana
+# 3. Estrutura da Rede
 
 <p align="justify">
 
-O grafo representa a hipótese de que as doenças são responsáveis pela ocorrência dos sintomas.
-
-Cada doença influencia probabilisticamente um ou mais sintomas, permitindo calcular a probabilidade das doenças após a observação dos sintomas apresentados pelo paciente.
-
-A estrutura simplificada do modelo pode ser representada da seguinte forma:
+As doenças são consideradas as causas dos sintomas. Dessa forma, cada doença influencia probabilisticamente a ocorrência de um ou mais sintomas.
 
 </p>
 
@@ -63,73 +79,88 @@ A estrutura simplificada do modelo pode ser representada da seguinte forma:
             └──► Cansaço
 ```
 
+<p align="justify">
+
+Quando os sintomas são observados, o algoritmo percorre essa estrutura para calcular a probabilidade posterior de cada doença.
+
+</p>
+
 ---
 
 # 4. Probabilidades Condicionais
 
 <p align="justify">
 
-Cada ligação do grafo possui uma distribuição de probabilidade condicional (CPD), responsável por representar a influência de uma variável sobre outra.
+Cada ligação do grafo possui uma distribuição de probabilidade condicional (CPD), responsável por modelar a influência de uma variável sobre outra.
 
-Essas tabelas podem ser obtidas de diferentes maneiras:
+</p>
 
-- conhecimento de especialistas;
-- aprendizado automático a partir de bases de dados;
-- combinação entre conhecimento especialista e dados históricos.
+<p align="justify">
 
-Em aplicações reais, normalmente essas probabilidades são aprendidas automaticamente utilizando grandes conjuntos de dados rotulados.
+Essas probabilidades podem ser definidas por especialistas, aprendidas automaticamente a partir de bases de dados ou obtidas pela combinação dessas duas abordagens.
+
+</p>
+
+<p align="justify">
+
+Em aplicações reais, normalmente essas distribuições são estimadas automaticamente utilizando grandes bases de dados clínicos.
 
 </p>
 
 ---
 
-# 5. Construção do Modelo
+# 5. Construção da Rede
 
 <p align="justify">
 
-Inicialmente são definidas as variáveis que compõem o problema e a estrutura do grafo direcionado.
+Inicialmente são definidas as variáveis do problema e a estrutura do grafo que representa suas dependências.
 
-Em seguida são adicionadas as distribuições de probabilidade condicional de cada variável e realizada uma verificação automática da consistência matemática da rede.
+</p>
 
-Trecho simplificado da construção:
+<p align="justify">
+
+Em seguida são adicionadas as distribuições de probabilidade condicional e realizada uma verificação automática da consistência matemática do modelo.
 
 </p>
 
 ```python
 modelo = BayesianModel([
-    ("Gripe", "Febre"),
-    ("Covid", "Febre"),
-    ("Gripe", "Tosse"),
-    ("Covid", "Tosse")
+    ("Gripe","Febre"),
+    ("Covid","Febre"),
+    ("Gripe","Tosse"),
+    ("Covid","Tosse")
 ])
 ```
 
 ---
 
-# 6. Processo de Inferência
+# 6. Inferência Bayesiana
 
 <p align="justify">
 
-Após a construção da rede, o algoritmo recebe as evidências observadas e calcula automaticamente as probabilidades posteriores das doenças.
+Após a construção da rede, o algoritmo recebe os sintomas observados e calcula automaticamente a probabilidade de cada doença.
 
-Esse processo utiliza inferência probabilística baseada no Teorema de Bayes, eliminando variáveis intermediárias durante os cálculos para tornar o processamento mais eficiente.
+</p>
 
-Trecho simplificado da inferência:
+<p align="justify">
+
+Esse processo utiliza inferência probabilística baseada no Teorema de Bayes, eliminando variáveis intermediárias para reduzir o custo computacional.
 
 </p>
 
 ```python
 resultado = inferencia.query(
-    variables=["Gripe", "Covid"],
-    evidence={"Febre":1, "Tosse":1}
+    variables=["Gripe","Covid"],
+    evidence={
+        "Febre":1,
+        "Tosse":1
+    }
 )
 ```
 
 <p align="justify">
 
-Sempre que uma nova evidência é adicionada, as probabilidades são atualizadas automaticamente.
-
-Por exemplo, ao informar que o paciente também apresenta cansaço, a distribuição de probabilidades pode mudar significativamente, refletindo o novo conjunto de informações disponível.
+Sempre que um novo sintoma é informado, as probabilidades são recalculadas automaticamente, refletindo o novo conjunto de evidências disponível.
 
 </p>
 
@@ -139,11 +170,7 @@ Por exemplo, ao informar que o paciente também apresenta cansaço, a distribui�
 
 <p align="justify">
 
-Quando existe uma base de dados contendo diagnósticos e sintomas, as distribuições condicionais podem ser estimadas automaticamente por algoritmos de aprendizado estatístico.
-
-Isso elimina a necessidade de preencher manualmente todas as tabelas de probabilidade.
-
-Trecho simplificado:
+Quando existe uma base de dados contendo diagnósticos e sintomas, as distribuições condicionais podem ser aprendidas automaticamente utilizando algoritmos estatísticos.
 
 </p>
 
@@ -156,7 +183,7 @@ modelo.fit(
 
 <p align="justify">
 
-Quanto maior e mais representativa for a base de dados utilizada no treinamento, maior tende a ser a qualidade das probabilidades aprendidas pelo modelo.
+Esse procedimento elimina a necessidade de preencher manualmente todas as tabelas de probabilidades e permite adaptar o modelo aos dados reais.
 
 </p>
 
@@ -164,30 +191,30 @@ Quanto maior e mais representativa for a base de dados utilizada no treinamento,
 
 # 8. Fluxo do Projeto
 
-<p align="justify">
-
-O funcionamento geral do sistema segue as seguintes etapas:
-
-</p>
-
 ```text
 Base de Dados
-       │
-       ▼
-Construção da Rede Bayesiana
-       │
-       ▼
+      │
+      ▼
+Construção da Rede
+      │
+      ▼
 Aprendizado das Probabilidades
-       │
-       ▼
+      │
+      ▼
 Recebimento dos Sintomas
-       │
-       ▼
+      │
+      ▼
 Inferência Bayesiana
-       │
-       ▼
+      │
+      ▼
 Probabilidade de Cada Doença
 ```
+
+<p align="justify">
+
+O fluxo demonstra como as informações percorrem todas as etapas até a obtenção das probabilidades finais das doenças.
+
+</p>
 
 ---
 
@@ -195,11 +222,13 @@ Probabilidade de Cada Doença
 
 <p align="justify">
 
-A utilização de Redes Bayesianas é amplamente empregada em problemas que envolvem incerteza e raciocínio probabilístico.
+Redes Bayesianas são amplamente utilizadas em sistemas especialistas, diagnóstico médico, análise de risco, manutenção preditiva, bioinformática, detecção de fraudes, confiabilidade de equipamentos, previsão de falhas industriais, segurança cibernética e diversos problemas de apoio à decisão.
 
-Além do diagnóstico médico, essa abordagem pode ser aplicada em sistemas especialistas, manutenção preditiva, análise de risco, detecção de fraudes, confiabilidade de equipamentos, segurança cibernética, previsão de falhas industriais, bioinformática, suporte à decisão clínica e modelagem de processos complexos.
+</p>
 
-Sua principal vantagem é combinar conhecimento especialista com dados históricos, produzindo modelos interpretáveis e capazes de atualizar automaticamente suas estimativas conforme novas evidências são observadas.
+<p align="justify">
+
+Sua principal característica é combinar conhecimento especializado com dados históricos, produzindo modelos interpretáveis e capazes de atualizar automaticamente suas estimativas sempre que novas evidências são observadas.
 
 </p>
 
@@ -210,23 +239,28 @@ Sua principal vantagem é combinar conhecimento especialista com dados históric
 <p align="justify">
 
 - Python
+
 - pgmpy
+
 - NumPy
+
 - Redes Bayesianas
+
 - Modelos Gráficos Probabilísticos (PGMs)
+
 - Inferência Bayesiana
 
 </p>
 
 ---
 
-# 11. Espaço para Resultado
+# 11. Resultado
 
 <p align="center">
 
-**Imagem do grafo e dos resultados do diagnóstico**
+**Imagem da Rede Bayesiana e dos resultados da inferência**
 
-*(Inserir imagem posteriormente.)*
+*(Inserir posteriormente.)*
 
 </p>
 
@@ -236,7 +270,13 @@ Sua principal vantagem é combinar conhecimento especialista com dados históric
 
 <p align="justify">
 
-Este projeto demonstra como Modelos Gráficos Probabilísticos podem representar relações de causa e efeito entre variáveis e realizar inferências mesmo na presença de informações incompletas ou incertas. A utilização de Redes Bayesianas permite incorporar conhecimento especializado, aprender probabilidades a partir de dados históricos e atualizar automaticamente as estimativas conforme novas evidências são disponibilizadas. Essa combinação entre representação gráfica, modelagem estatística e inferência probabilística torna essa abordagem uma ferramenta poderosa para sistemas de apoio à decisão em diversas áreas, especialmente em problemas onde a interpretação das relações entre as variáveis é tão importante quanto a própria previsão realizada pelo modelo.
+Este projeto demonstra como Redes Bayesianas podem representar relações probabilísticas entre doenças e sintomas de forma intuitiva e interpretável. A utilização de Modelos Gráficos Probabilísticos permite incorporar conhecimento especializado, aprender distribuições condicionais a partir de dados históricos e atualizar automaticamente as probabilidades conforme novas evidências são observadas.
 
 </p>
 
+<p align="justify">
+
+Essa capacidade de lidar naturalmente com incertezas torna essa abordagem extremamente útil para sistemas de apoio à decisão, oferecendo modelos transparentes, eficientes e aplicáveis em diversos domínios onde a interpretação das relações entre variáveis é tão importante quanto a própria previsão realizada.
+
+</p>
+`
