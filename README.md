@@ -227,7 +227,7 @@ Sua principal característica é combinar conhecimento especializado com dados h
 <p align="center">
 
 <p align="center">
-  <img src="https://github.com/rodfloripa/Projeto81/blob/main/fig2.png">
+  <img src="https://github.com/rodfloripa/Projeto81/blob/main/fig2.jpg">
 </p>
 
 </p>
