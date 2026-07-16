@@ -1,7 +1,7 @@
 
 # Diagnóstico Probabilístico de Doenças com Redes Bayesianas
 
-<p align="center">
+<p align="justify">
 Projeto de inferência probabilística utilizando Redes Bayesianas para estimar a probabilidade de doenças a partir de sintomas observados por meio de Modelos Gráficos Probabilísticos (PGMs).
 </p>
 
