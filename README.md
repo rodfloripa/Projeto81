@@ -146,7 +146,29 @@ Quando existe uma base de dados contendo diagnósticos e sintomas, as distribui�
 
 </p>
 
+<p align="justify">
+Em aplicações reais, as distribuições de probabilidade condicional (CPDs) normalmente não são preenchidas manualmente. Em vez disso, elas são estimadas automaticamente a partir de uma base de dados contendo registros históricos.
+</p>
+
+<p align="justify">
+Cada registro representa uma observação do problema, contendo os valores das variáveis da rede. No exemplo deste projeto, cada linha informa se um paciente possui determinada doença e quais sintomas foram observados.
+</p>
+
+| Gripe | Resfriado | Covid | Febre | Tosse | Cansaço |
+|------:|----------:|------:|-------:|-------:|---------:|
+| 1 | 0 | 0 | 1 | 1 | 1 |
+| 0 | 1 | 0 | 0 | 1 | 0 |
+| 0 | 0 | 1 | 1 | 1 | 1 |
+| 1 | 0 | 0 | 1 | 0 | 1 |
+| 0 | 1 | 0 | 0 | 1 | 0 |
+
+<p align="justify">
+Após carregar a base de dados, o algoritmo utiliza um estimador estatístico para calcular automaticamente todas as distribuições de probabilidade condicional da Rede Bayesiana.
+</p>
+
 ```python
+from pgmpy.estimators import MaximumLikelihoodEstimator
+
 modelo.fit(
     dados,
     estimator=MaximumLikelihoodEstimator
@@ -154,8 +176,15 @@ modelo.fit(
 ```
 
 <p align="justify">
-Esse procedimento elimina a necessidade de preencher manualmente todas as tabelas de probabilidades e permite adaptar o modelo aos dados reais.
+Durante esse processo, o algoritmo contabiliza a frequência de ocorrência de cada combinação entre doenças e sintomas e estima as probabilidades condicionais que serão utilizadas durante a inferência probabilística.
+</p>
 
+<p align="justify">
+Quanto maior e mais representativa for a base de dados utilizada no treinamento, mais precisas tendem a ser as probabilidades aprendidas, tornando o modelo mais confiável para realizar diagnósticos probabilísticos.
+</p>
+
+<p align="justify">
+Esse procedimento elimina a necessidade de preencher manualmente todas as tabelas de probabilidades e permite adaptar o modelo aos dados reais.
 </p>
 
 ---
