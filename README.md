@@ -60,12 +60,12 @@ As doenças são consideradas as causas dos sintomas. Dessa forma, cada doença 
 ```text
           Gripe
             │
-            ├────────┐
-            │        │
+            ├────-───┐
+            │         │
             ▼        ▼
          Febre     Tosse
             ▲        ▲
-            │        │
+            │         │
        Resfriado   Covid
             │        │
             └──► Cansaço
