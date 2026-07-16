@@ -57,19 +57,9 @@ As doenças são consideradas as causas dos sintomas. Dessa forma, cada doença 
 
 </p>
 
-```text
-          Gripe
-            │
-            ├────-───┐
-            │         │
-            ▼        ▼
-         Febre     Tosse
-            ▲        ▲
-            │         │
-       Resfriado   Covid
-            │        │
-            └──► Cansaço
-```
+<p align="center">
+  <img src="https://github.com/rodfloripa/Projeto81/blob/main/fig1.png">
+</p>
 
 <p align="justify">
 Quando os sintomas são observados, o algoritmo percorre essa estrutura para calcular a probabilidade posterior de cada doença.
