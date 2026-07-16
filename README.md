@@ -58,7 +58,7 @@ As doenças são consideradas as causas dos sintomas. Dessa forma, cada doença 
 </p>
 
 <p align="center">
-  <img src="https://github.com/rodfloripa/Projeto81/blob/main/fig1.png">
+  <img src="https://github.com/rodfloripa/Projeto81/blob/main/fig.png">
 </p>
 
 <p align="justify">
