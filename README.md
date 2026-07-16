@@ -226,9 +226,9 @@ Sua principal característica é combinar conhecimento especializado com dados h
 
 <p align="center">
 
-**Imagem da Rede Bayesiana e dos resultados da inferência**
-
-*(Inserir posteriormente.)*
+<p align="center">
+  <img src="https://github.com/rodfloripa/Projeto81/blob/main/fig2.png">
+</p>
 
 </p>
 
